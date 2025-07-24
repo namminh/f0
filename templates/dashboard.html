@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VNStock - Real-time Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+        
+        .controls {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            margin: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+        
+        .btn-success:hover {
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+        
+        .btn-warning:hover {
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .stocks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .stock-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stock-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #f39c12, #e74c3c);
+        }
+        
+        .stock-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .stock-symbol {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .stock-price {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        
+        .price-change.positive {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .price-change.negative {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .company-name {
+            font-style: italic;
+        }
+        
+        .stock-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .metric {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .metric-label {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+        
+        .metric-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .buy-sell-indicator {
+            display: flex;
+            margin: 15px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 30px;
+        }
+        
+        .buy-bar {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .sell-bar {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .stock-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .stock-actions .btn {
+            flex: 1;
+            padding: 10px;
+            font-size: 0.9em;
+        }
+        
+        .status-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #27ae60;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .last-updated {
+            font-size: 0.8em;
+            color: #95a5a6;
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.2em;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2ecc71;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 2000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .auto-update-status {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 10px auto;
+            text-align: center;
+            max-width: 300px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        .auto-update-status.active {
+            background: rgba(46, 204, 113, 0.1);
+            border: 2px solid #2ecc71;
+            color: #27ae60;
+        }
+        
+        @media (max-width: 768px) {
+            .stocks-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 VNStock Dashboard</h1>
+        <div class="subtitle">Real-time Stock Analysis & Monitoring | DOMINUS AGENT</div>
+        <div style="text-align: center; margin-top: 10px; color: #7f8c8d; font-size: 0.9em;">
+            📈 Tracking: <span id="stockCount">Loading...</span> Active Stocks
+        </div>
+    </div>
+    
+    <div class="auto-update-status" id="autoUpdateStatus">
+        🔄 Auto-update: Initializing...
+    </div>
+    
+    <div class="controls">
+        <button class="btn btn-success" onclick="updateAllStocks()">🔄 Update All</button>
+        <button class="btn btn-warning" onclick="fullAnalysisAll()">📊 Full Analysis</button>
+        <button class="btn" onclick="toggleAutoUpdate()">⏰ Toggle Auto-Update</button>
+
+    </div>
+    
+    <div class="container">
+        <div class="loading" id="loading">
+            🔄 Loading stocks data...
+        </div>
+        
+        <div class="stocks-grid" id="stocksGrid" style="display: none;">
+            <!-- Stocks will be populated here -->
+        </div>
+    </div>
+    
+    <div class="notification" id="notification">
+        <!-- Notifications will appear here -->
+    </div>
+
+    <script>
+        // Initialize Socket.IO
+        const socket = io();
+        let autoUpdateEnabled = true;
+        let stocks = [];
+        
+        // Socket event handlers
+        socket.on('connect', function() {
+            console.log('Connected to server');
+            updateAutoUpdateStatus('Connected - Auto-update active');
+        });
+        
+        socket.on('disconnect', function() {
+            console.log('Disconnected from server');
+            updateAutoUpdateStatus('Disconnected - Manual updates only');
+        });
+        
+        socket.on('stock_updated', function(data) {
+            updateStockCard(data);
+            showNotification(`${data.symbol} updated successfully`, 'success');
+        });
+        
+        // Load stocks data từ config
+        async function loadStocks() {
+            try {
+                // Load từ stocks_config.json thay vì API
+                const response = await fetch('/api/config');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const config = await response.json();
+                
+                // Kiểm tra config có active_stocks không
+                if (!config.active_stocks || !Array.isArray(config.active_stocks)) {
+                    throw new Error('Invalid config: active_stocks not found');
+                }
+                
+                // Tạo stock objects từ config với thông tin cơ bản
+                const stockInfo = {
+                    'DIG': 'DIC Corporation',
+                    'VHM': 'Vinhomes',  
+                    'VIX': 'VIX Group',
+                    'VRE': 'Vincom Retail',
+                    'VCB': 'Vietcombank',
+                    'MBS': 'MB Securities',
+                    'CTG': 'VietinBank',
+                    'VIC': 'Vingroup'
+                };
+                
+                stocks = config.active_stocks.map(symbol => ({
+                    symbol: symbol,
+                    company: stockInfo[symbol] || `${symbol} Company`,
+                    current_price: 0,
+                    price_change: 0,
+                    high_price: 0,
+                    low_price: 0,
+                    total_volume: 0,
+                    data_points: 0,
+                    buy_ratio: 0,
+                    sell_ratio: 0,
+                    last_updated: 'Loading...',
+                    status: 'LOADING'
+                }));
+                
+                renderStocks(stocks);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('stocksGrid').style.display = 'grid';
+                
+                // Update stock count
+                document.getElementById('stockCount').textContent = config.active_stocks.length;
+                
+                showNotification('Dashboard loaded successfully!', 'success');
+                
+                // Load thực tế data cho từng cổ phiếu
+                loadRealStockData();
+            } catch (error) {
+                console.error('Error loading stocks config:', error);
+                
+                // Fallback với ALL stocks từ config (cập nhật để khớp với stocks_config.json)
+                console.log('Using fallback stocks configuration');
+                stocks = [
+                    { symbol: 'DIG', company: 'DIC Corporation', current_price: 0, price_change: 0, high_price: 0, low_price: 0, total_volume: 0, data_points: 0, buy_ratio: 0, sell_ratio: 0, last_updated: 'Fallback mode', status: 'UNKNOWN' },
+                    { symbol: 'VHM', company: 'Vinhomes', current_price: 0, price_change: 0, high_price: 0, low_price: 0, total_volume: 0, data_points: 0, buy_ratio: 0, sell_ratio: 0, last_updated: 'Fallback mode', status: 'UNKNOWN' },
+                    { symbol: 'VIX', company: 'VIX Group', current_price: 0, price_change: 0, high_price: 0, low_price: 0, total_volume: 0, data_points: 0, buy_ratio: 0, sell_ratio: 0, last_updated: 'Fallback mode', status: 'UNKNOWN' },
+                    { symbol: 'VRE', company: 'Vincom Retail', current_price: 0, price_change: 0, high_price: 0, low_price: 0, total_volume: 0, data_points: 0, buy_ratio: 0, sell_ratio: 0, last_updated: 'Fallback mode', status: 'UNKNOWN' }
+                ];
+                
+                renderStocks(stocks);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('stocksGrid').style.display = 'grid';
+                document.getElementById('stockCount').textContent = stocks.length;
+                
+                showNotification('Using fallback configuration - Please check server', 'warning');
+            }
+        }
+        
+        // Load thực tế data cho từng cổ phiếu
+        async function loadRealStockData() {
+            for (const stock of stocks) {
+                try {
+                    // Try multiple data sources
+                    let stockData = null;
+                    
+                    // Source 1: API endpoint
+                    try {
+                        const response = await fetch(`/api/stock/${stock.symbol}`);
+                        if (response.ok) {
+                            stockData = await response.json();
+                        }
+                    } catch (e) { console.log(`API call failed for ${stock.symbol}`); }
+                    
+                    // Source 2: Direct file access to JSON data  
+                    if (!stockData) {
+                        try {
+                            const fileResponse = await fetch(`/stock_analysis/${stock.symbol}/data/${stock.symbol}_intraday_data.json`);
+                            if (fileResponse.ok) {
+                                const fileData = await fileResponse.json();
+                                
+                                // Convert file data to dashboard format
+                                if (fileData && fileData.current_price) {
+                                    stockData = {
+                                        symbol: stock.symbol,
+                                        current_price: fileData.current_price,
+                                        high_price: fileData.high_price,
+                                        low_price: fileData.low_price,
+                                        total_volume: fileData.total_volume,
+                                        data_points: fileData.data_points,
+                                        buy_ratio: fileData.buy_ratio || 0,
+                                        sell_ratio: fileData.sell_ratio || 0,
+                                        price_change: fileData.price_change || 0,
+                                        last_updated: fileData.timestamp || new Date().toLocaleString('vi-VN')
+                                    };
+                                }
+                            }
+                        } catch (e) { console.log(`File access failed for ${stock.symbol}`); }
+                    }
+                    
+                    // Update stock card if data found
+                    if (stockData) {
+                        updateStockCard(stockData);
+                    } else {
+                        // Update status to show no data available
+                        const stockIndex = stocks.findIndex(s => s.symbol === stock.symbol);
+                        if (stockIndex >= 0) {
+                            stocks[stockIndex].last_updated = 'No data available';
+                            stocks[stockIndex].status = 'NO_DATA';
+                            updateStockCard(stocks[stockIndex]);
+                        }
+                    }
+                    
+                } catch (error) {
+                    console.log(`Error loading data for ${stock.symbol}:`, error);
+                }
+            }
+        }
+        
+        // Render stocks grid
+        function renderStocks(stocksData) {
+            const grid = document.getElementById('stocksGrid');
+            grid.innerHTML = '';
+            
+            stocksData.forEach(stock => {
+                const card = createStockCard(stock);
+                grid.appendChild(card);
+            });
+        }
+        
+        // Create stock card
+        function createStockCard(stock) {
+            const card = document.createElement('div');
+            card.className = 'stock-card';
+            card.id = `stock-${stock.symbol}`;
+            
+            const buyPercentage = stock.buy_ratio || 0;
+            const sellPercentage = stock.sell_ratio || 0;
+            const priceChange = stock.price_change || 0;
+            const changeClass = priceChange > 0 ? 'positive' : priceChange < 0 ? 'negative' : '';
+            const changeIcon = priceChange > 0 ? '↑' : priceChange < 0 ? '↓' : '';
+            
+            card.innerHTML = `
+                <div class="status-indicator"></div>
+                <div class="stock-header">
+                    <div class="stock-info">
+                        <div class="stock-symbol">${stock.symbol}</div>
+                        <div class="company-name" style="font-size: 0.8em; color: #7f8c8d; margin-top: 2px;">${stock.company || ''}</div>
+                    </div>
+                    <div class="price-info">
+                        <div class="stock-price">${(stock.current_price || 0).toLocaleString()} VND</div>
+                        <div class="price-change ${changeClass}" style="font-size: 0.9em; margin-top: 2px;">
+                            ${changeIcon} ${priceChange >= 0 ? '+' : ''}${priceChange.toFixed(2)}%
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stock-metrics">
+                    <div class="metric">
+                        <div class="metric-label">High</div>
+                        <div class="metric-value">${(stock.high_price || 0).toLocaleString()}</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Low</div>
+                        <div class="metric-value">${(stock.low_price || 0).toLocaleString()}</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Volume</div>
+                        <div class="metric-value">${(stock.total_volume || 0).toLocaleString()}</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Data Points</div>
+                        <div class="metric-value">${(stock.data_points || 0).toLocaleString()}</div>
+                    </div>
+                </div>
+                
+                <div class="buy-sell-indicator">
+                    <div class="buy-bar" style="width: ${buyPercentage}%">
+                        ${buyPercentage.toFixed(1)}% Buy
+                    </div>
+                    <div class="sell-bar" style="width: ${sellPercentage}%">
+                        ${sellPercentage.toFixed(1)}% Sell
+                    </div>
+                </div>
+                
+                <div class="stock-actions">
+                    <button class="btn" onclick="updateStock('${stock.symbol}')">🔄 Update</button>
+                    <button class="btn btn-warning" onclick="fullAnalysis('${stock.symbol}')">📊 Analyze</button>
+                    <a href="/stock/${stock.symbol}" class="btn btn-success" target="_blank">📈 Report</a>
+                </div>
+                
+                <div class="trading-status" style="text-align: center; margin: 10px 0;">
+                    <span class="status-badge ${stock.status?.toLowerCase() || 'unknown'}" style="
+                        padding: 4px 12px; 
+                        border-radius: 15px; 
+                        font-size: 0.8em; 
+                        font-weight: bold;
+                        background: ${stock.status === 'LOADING' ? '#3498db' : stock.status === 'NO_DATA' ? '#95a5a6' : '#2ecc71'};
+                        color: white;
+                    ">
+                        ${stock.status === 'LOADING' ? '⏳ Loading' : 
+                          stock.status === 'NO_DATA' ? '❌ No Data' : 
+                          stock.status === 'UNKNOWN' ? '❓ Unknown' : '✅ Live'}
+                    </span>
+                </div>
+                
+                <div class="last-updated">
+                    Last updated: ${stock.last_updated || 'N/A'}
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        // Update specific stock card
+        function updateStockCard(updatedStock) {
+            // Find existing stock in array and merge data
+            const stockIndex = stocks.findIndex(s => s.symbol === updatedStock.symbol);
+            if (stockIndex >= 0) {
+                // Merge updated data while preserving company name and other info
+                stocks[stockIndex] = {
+                    ...stocks[stockIndex],
+                    ...updatedStock,
+                    company: stocks[stockIndex].company, // Preserve company name
+                    status: updatedStock.current_price > 0 ? 'LIVE' : 'NO_DATA'
+                };
+                
+                // Update card display
+                const existingCard = document.getElementById(`stock-${updatedStock.symbol}`);
+                if (existingCard) {
+                    const newCard = createStockCard(stocks[stockIndex]);
+                    existingCard.replaceWith(newCard);
+                }
+            }
+        }
+        
+        // Update single stock
+        async function updateStock(symbol) {
+            showNotification(`Updating ${symbol}...`, 'info');
+            try {
+                const response = await fetch(`/api/update/${symbol}`);
+                const result = await response.json();
+                if (result.success) {
+                    showNotification(result.message, 'success');
+                } else {
+                    showNotification(result.message, 'error');
+                }
+            } catch (error) {
+                showNotification(`Error updating ${symbol}`, 'error');
+            }
+        }
+        
+        // Full analysis for single stock
+        async function fullAnalysis(symbol) {
+            showNotification(`Running full analysis for ${symbol}...`, 'info');
+            try {
+                const response = await fetch(`/api/update/${symbol}/full`);
+                const result = await response.json();
+                if (result.success) {
+                    showNotification(result.message, 'success');
+                } else {
+                    showNotification(result.message, 'error');
+                }
+            } catch (error) {
+                showNotification(`Error analyzing ${symbol}`, 'error');
+            }
+        }
+        
+        // Update all stocks
+        async function updateAllStocks() {
+            showNotification('Updating all stocks...', 'info');
+            const stockSymbols = stocks.map(s => s.symbol);
+            
+            for (const symbol of stockSymbols) {
+                try {
+                    await updateStock(symbol);
+                    await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds between updates
+                } catch (error) {
+                    console.error(`Error updating ${symbol}:`, error);
+                }
+            }
+            
+            showNotification('All stocks updated!', 'success');
+        }
+        
+        // Full analysis for all stocks
+        async function fullAnalysisAll() {
+            showNotification('Running full analysis for all stocks...', 'info');
+            const stockSymbols = stocks.map(s => s.symbol);
+            
+            for (const symbol of stockSymbols) {
+                try {
+                    await fullAnalysis(symbol);
+                    await new Promise(resolve => setTimeout(resolve, 5000)); // Wait 5 seconds between analyses
+                } catch (error) {
+                    console.error(`Error analyzing ${symbol}:`, error);
+                }
+            }
+            
+            showNotification('Full analysis completed for all stocks!', 'success');
+        }
+        
+        // Toggle auto-update
+        function toggleAutoUpdate() {
+            autoUpdateEnabled = !autoUpdateEnabled;
+            const status = autoUpdateEnabled ? 'Auto-update enabled' : 'Auto-update disabled';
+            updateAutoUpdateStatus(status);
+            showNotification(status, autoUpdateEnabled ? 'success' : 'warning');
+        }
+        
+        // Update auto-update status
+        function updateAutoUpdateStatus(message) {
+            const statusEl = document.getElementById('autoUpdateStatus');
+            statusEl.textContent = `🔄 Auto-update: ${message}`;
+            statusEl.className = autoUpdateEnabled ? 'auto-update-status active' : 'auto-update-status';
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification show ${type}`;
+            
+            // Color based on type
+            if (type === 'success') notification.style.background = '#2ecc71';
+            else if (type === 'error') notification.style.background = '#e74c3c';
+            else if (type === 'warning') notification.style.background = '#f39c12';
+            else notification.style.background = '#3498db';
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Auto-refresh data every 5 minutes
+        setInterval(() => {
+            if (autoUpdateEnabled) {
+                loadStocks();
+            }
+        }, 5 * 60 * 1000); // 5 minutes
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStocks();
+            updateAutoUpdateStatus('Active - Updates every 5 minutes');
+        });
+    </script>
+</body>
+</html>

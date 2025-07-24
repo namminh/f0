@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VHM - Báo cáo Phân tích Comprehensive</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 5px solid #2196F3;
+        }
+        .card h3 {
+            margin: 0 0 10px 0;
+            color: #2196F3;
+            font-size: 1.1em;
+        }
+        .card .value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
+            margin: 10px 0;
+        }
+        .card .change {
+            font-size: 1em;
+            margin: 5px 0;
+        }
+        .positive { color: #4CAF50; }
+        .negative { color: #f44336; }
+        .neutral { color: #FF9800; }
+        
+        .recommendation {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 30px;
+            margin: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .recommendation.sell, .recommendation.weak.sell {
+            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+        }
+        .recommendation.hold {
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+        }
+        
+        .charts-section {
+            padding: 30px;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin: 20px 0;
+        }
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .chart-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .chart-title {
+            background: #f8f9fa;
+            padding: 15px;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .analysis-section {
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .analysis-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .analysis-box h3 {
+            color: #2196F3;
+            margin-top: 0;
+            border-bottom: 2px solid #2196F3;
+            padding-bottom: 10px;
+        }
+        
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+        
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>VHM COMPREHENSIVE ANALYSIS</h1>
+            <p>Báo cáo Phân tích Chi tiết - 22/07/2025 14:14:26</p>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+            <div class="card">
+                <h3>Giá Hiện tại</h3>
+                <div class="value">95.10 VND</div>
+                <div class="change positive">
+                    +3.90 VND (+4.28%)
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Khối lượng GD</h3>
+                <div class="value">3,256,200</div>
+                <div class="change">Tỷ lệ Mua/Bán: 0.71</div>
+            </div>
+            
+            <div class="card">
+                <h3>Tổng Tài sản</h3>
+                <div class="value">--T VND</div>
+                <div class="change">Debt Ratio: --%</div>
+            </div>
+            
+            <div class="card">
+                <h3>ROE</h3>
+                <div class="value">--%</div>
+                <div class="change">P/E: --</div>
+            </div>
+        </div>
+
+        <!-- Investment Recommendation -->
+        <div class="recommendation sell">
+            <h2>KHUYẾN NGHỊ ĐẦU TƯ: SELL</h2>
+            <p><strong>Target Price:</strong> 80.83 VND (-15.0%)</p>
+            <p><strong>Timeframe:</strong> 3-6 tháng | <strong>Risk Level:</strong> Cao | <strong>Confidence:</strong> 85%</p>
+            <p><strong>Xu hướng:</strong> Tăng | <strong>Score:</strong> 30/100</p>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-section">
+            <h2>Biểu đồ Phân tích (18 Charts - Comprehensive Analysis)</h2>
+            
+            <!-- Key Charts -->
+            <h3>Key Performance Charts (3/18)</h3>
+            <div class="charts-grid">
+                
+                <div class="chart-container">
+                    <div class="chart-title">Buy Vs Sell</div>
+                    <img src="../charts/key_charts/buy_vs_sell.png" alt="Buy Vs Sell">
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Price Trend</div>
+                    <img src="../charts/key_charts/price_trend.png" alt="Price Trend">
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Volume By Hour</div>
+                    <img src="../charts/key_charts/volume_by_hour.png" alt="Volume By Hour">
+                </div>
+                
+            </div>
+            
+            <!-- Technical Analysis Charts -->
+            <h3>Technical Analysis Charts (5/18)</h3>
+            <div class="charts-grid">
+                
+                <div class="chart-container">
+                    <div class="chart-title">Comprehensive Price Analysis</div>
+                    <img src="../charts/technical_analysis/comprehensive_price_analysis.png" alt="Comprehensive Price Analysis">
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Market Sentiment</div>
+                    <img src="../charts/technical_analysis/market_sentiment.png" alt="Market Sentiment">
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Technical Indicators</div>
+                    <img src="../charts/technical_analysis/technical_indicators.png" alt="Technical Indicators">
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Trading Summary</div>
+                    <img src="../charts/technical_analysis/trading_summary.png" alt="Trading Summary">
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Volume Analysis</div>
+                    <img src="../charts/technical_analysis/volume_analysis.png" alt="Volume Analysis">
+                </div>
+                
+            </div>
+            
+            <!-- Financial Analysis Charts -->
+            <h3>Financial Analysis Charts (5/18)</h3>
+            <div class="charts-grid">
+                
+                <div class="chart-container">
+                    <div class="chart-title">Financial Health Dashboard</div>
+                    <img src="../charts/financial_analysis/financial_health_dashboard.png" alt="Financial Health Dashboard">
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Financial Trends</div>
+                    <img src="../charts/financial_analysis/financial_trends.png" alt="Financial Trends">
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Peer Comparison</div>
+                    <img src="../charts/financial_analysis/peer_comparison.png" alt="Peer Comparison">
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Profitability Analysis</div>
+                    <img src="../charts/financial_analysis/profitability_analysis.png" alt="Profitability Analysis">
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Real Estate Specific Metrics</div>
+                    <img src="../charts/financial_analysis/real_estate_specific_metrics.png" alt="Real Estate Specific Metrics">
+                </div>
+                
+            </div>
+            
+            <!-- Additional Analysis Charts -->
+            <h3>Additional Analysis Charts (5/18)</h3>
+            <div class="charts-grid">
+                
+                <div class="chart-container">
+                    <div class="chart-title">Liquidity Analysis</div>
+                    <img src="../charts/additional_analysis/liquidity_analysis.png" alt="Liquidity Analysis">
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Performance Dashboard</div>
+                    <img src="../charts/additional_analysis/performance_dashboard.png" alt="Performance Dashboard">
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Price Action Analysis</div>
+                    <img src="../charts/additional_analysis/price_action_analysis.png" alt="Price Action Analysis">
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Risk Assessment</div>
+                    <img src="../charts/additional_analysis/risk_assessment.png" alt="Risk Assessment">
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Trading Zones</div>
+                    <img src="../charts/additional_analysis/trading_zones.png" alt="Trading Zones">
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Detailed Analysis -->
+        <div class="analysis-section">
+            <h2>Phân tích Chi tiết</h2>
+            
+            <div class="analysis-grid">
+                <div class="analysis-box">
+                    <h3>Technical Analysis</h3>
+                    <div class="metric-row">
+                        <span>Volatility (Std Dev):</span>
+                        <span>0.923</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>Price Range:</span>
+                        <span>90.00 - 95.20</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>Volume Weighted Avg:</span>
+                        <span>93.07 VND</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>Data Points:</span>
+                        <span>3,641</span>
+                    </div>
+                </div>
+                
+                <div class="analysis-box">
+                    <h3>Financial Health</h3>
+                    <div class="metric-row">
+                        <span>Total Assets:</span>
+                        <span>-- VND</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>Total Liabilities:</span>
+                        <span>-- VND</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>Equity:</span>
+                        <span>-- VND</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>Debt/Asset Ratio:</span>
+                        <span>--%</span>
+                    </div>
+                </div>
+                
+                <div class="analysis-box">
+                    <h3>Profitability Ratios</h3>
+                    <div class="metric-row">
+                        <span>ROE (Return on Equity):</span>
+                        <span>--%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>ROA (Return on Assets):</span>
+                        <span>--%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>P/E Ratio:</span>
+                        <span>--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>P/B Ratio:</span>
+                        <span>--</span>
+                    </div>
+                </div>
+                
+                <div class="analysis-box">
+                    <h3>Risk Assessment</h3>
+                    <div class="metric-row">
+                        <span>Price Volatility:</span>
+                        <span>Thấp</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>Liquidity:</span>
+                        <span>Tốt</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>Financial Leverage:</span>
+                        <span>N/A</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>Overall Risk:</span>
+                        <span>Cao</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="analysis-box" style="margin-top: 30px;">
+                <h3>Key Insights & Summary</h3>
+                <p><strong>Điểm mạnh:</strong></p>
+                <ul>
+                    
+                    <li>Thanh khoản rất tốt</li>
+                    
+                </ul>
+                
+                <p><strong>Điểm cần lưu ý:</strong></p>
+                <ul>
+                    
+                    <li>Áp lực bán mạnh</li>
+                    
+                </ul>
+                
+                <p><strong>Kết luận:</strong> VHM hiện tại được khuyến nghị SELL với giá mục tiêu 80.83 VND. 
+                Mức độ tin cậy 85% dựa trên phân tích kỹ thuật và cơ bản.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Báo cáo được tạo tự động bởi DOMINUS AGENT | VNStock Analysis System v6.0</p>
+            <p>Dữ liệu cập nhật: 22/07/2025 14:14:26 | Chỉ mang tính chất tham khảo</p>
+        </div>
+    </div>
+</body>
+</html>

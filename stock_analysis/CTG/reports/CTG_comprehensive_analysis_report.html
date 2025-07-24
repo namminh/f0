@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTG - Báo cáo Phân tích Toàn diện DOMINUS</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .header p {
+            font-size: 1.2em;
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            border-left: 5px solid #2a5298;
+        }
+        .section h2 {
+            color: #1e3c72;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e1e5e9;
+        }
+        .metric-card h3 {
+            margin: 0 0 10px 0;
+            color: #2a5298;
+            font-size: 1.1em;
+        }
+        .metric-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .chart-title {
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        .analysis-text {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin: 20px 0;
+            border-left: 4px solid #2a5298;
+        }
+        .recommendation {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(17, 153, 142, 0.3);
+        }
+        .recommendation h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.3em;
+        }
+        .risk-warning {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #ff9a9e;
+        }
+        .footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 0.9em;
+            text-align: right;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏦 CTG - VietinBank</h1>
+            <p>Báo cáo Phân tích Toàn diện DOMINUS AI System</p>
+            <p>Ngày: 24/07/2025 | Cập nhật: 14:23</p>
+        </div>
+
+        <div class="content">
+            <!-- Key Metrics Section -->
+            <div class="section">
+                <h2>📊 Thông tin Giao dịch Chính</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>Giá Hiện tại</h3>
+                        <div class="metric-value">45,70 VND</div>
+                        <small>Tăng +0.22%</small>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Tổng Khối lượng</h3>
+                        <div class="metric-value">4.21M</div>
+                        <small>cổ phiếu</small>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Tỷ lệ Mua/Bán</h3>
+                        <div class="metric-value">0.68</div>
+                        <small>Áp lực bán mạnh</small>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Độ biến động</h3>
+                        <div class="metric-value">0.16</div>
+                        <small>Thấp - Ổn định</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Charts Section -->
+            <div class="section">
+                <h2>📈 Biểu đồ Chính - Key Charts</h2>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Xu hướng Giá theo Thời gian</div>
+                        <img src="../charts/key_charts/price_trend.png" alt="Price Trend">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Khối lượng theo Giờ</div>
+                        <img src="../charts/key_charts/volume_by_hour.png" alt="Volume by Hour">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Tỷ lệ Mua vs Bán</div>
+                        <img src="../charts/key_charts/buy_vs_sell.png" alt="Buy vs Sell">
+                    </div>
+                </div>
+                
+                <div class="analysis-text">
+                    <h3>🔍 Phân tích Key Charts:</h3>
+                    <p><strong>Xu hướng Giá:</strong> CTG dao động trong khoảng 45.20-45.95 VND, tăng nhẹ 0.22% trong phiên. Giá có xu hướng tăng về cuối phiên sau giai đoạn sideway.</p>
+                    <p><strong>Khối lượng:</strong> Tập trung chủ yếu vào đầu phiên (9h: 1.1M) và giữa trưa (13h: 1.3M). Khối lượng giảm dần về cuối ngày, cho thấy sự quan tâm giảm.</p>
+                    <p><strong>Sentiment:</strong> Áp lực bán mạnh hơn mua (tỷ lệ 0.68), nhưng giá vẫn tăng nhẹ cho thấy lực mua từ tổ chức.</p>
+                </div>
+            </div>
+
+            <!-- Technical Analysis Section -->
+            <div class="section">
+                <h2>🔧 Phân tích Kỹ thuật - Technical Analysis</h2>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Phân tích Giá Toàn diện</div>
+                        <img src="../charts/technical_analysis/comprehensive_price_analysis.png" alt="Comprehensive Price Analysis">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Chỉ báo Kỹ thuật</div>
+                        <img src="../charts/technical_analysis/technical_indicators.png" alt="Technical Indicators">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Tâm lý Thị trường</div>
+                        <img src="../charts/technical_analysis/market_sentiment.png" alt="Market Sentiment">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Phân tích Khối lượng</div>
+                        <img src="../charts/technical_analysis/volume_analysis.png" alt="Volume Analysis">
+                    </div>
+                </div>
+                
+                <div class="analysis-text">
+                    <h3>🎯 Kết quả Phân tích Kỹ thuật:</h3>
+                    <p><strong>Support/Resistance:</strong> Vùng support mạnh tại 45.35, resistance tại 45.80. Giá đang test vùng kháng cự.</p>
+                    <p><strong>RSI:</strong> Hiện tại 65-70, vùng neutral cao, chưa quá mua nhưng cần theo dõi.</p>
+                    <p><strong>Bollinger Bands:</strong> Giá dao động gần upper band, cho thấy momentum tích cực.</p>
+                    <p><strong>Volume Profile:</strong> Khối lượng tập trung ở vùng 45.6-45.7, tạo vùng value area mạnh.</p>
+                </div>
+            </div>
+
+            <!-- Financial Analysis Section -->
+            <div class="section">
+                <h2>💰 Phân tích Tài chính - Financial Analysis</h2>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Dashboard Sức khỏe Tài chính</div>
+                        <img src="../charts/financial_analysis/financial_health_dashboard.png" alt="Financial Health">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Phân tích Lợi nhuận</div>
+                        <img src="../charts/financial_analysis/profitability_analysis.png" alt="Profitability Analysis">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">So sánh với Peers</div>
+                        <img src="../charts/financial_analysis/peer_comparison.png" alt="Peer Comparison">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Chỉ số Ngân hàng</div>
+                        <img src="../charts/financial_analysis/real_estate_specific_metrics.png" alt="Banking Metrics">
+                    </div>
+                </div>
+                
+                <div class="analysis-text">
+                    <h3>💼 Đánh giá Tài chính:</h3>
+                    <p><strong>ROE Performance:</strong> CTG dẫn đầu nhóm ngân hàng với ROE 18.8%, vượt trội so với ACB (16.2%), TPB (15.8%).</p>
+                    <p><strong>Cơ cấu Tài sản:</strong> 74.3% tổng tài sản, cho thấy tập trung vào hoạt động ngân hàng cốt lõi.</p>
+                    <p><strong>Tăng trưởng Tín dụng:</strong> Tăng trưởng ổn định qua các năm, quản lý rủi ro tốt.</p>
+                    <p><strong>Chất lượng Tài sản:</strong> Xu hướng cải thiện, NPL giảm và provision coverage tăng.</p>
+                </div>
+            </div>
+
+            <!-- Additional Analysis Section -->
+            <div class="section">
+                <h2>🔬 Phân tích Bổ sung - Additional Analysis</h2>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Đánh giá Rủi ro</div>
+                        <img src="../charts/additional_analysis/risk_assessment.png" alt="Risk Assessment">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Dashboard Hiệu suất</div>
+                        <img src="../charts/additional_analysis/performance_dashboard.png" alt="Performance Dashboard">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Phân tích Thanh khoản</div>
+                        <img src="../charts/additional_analysis/liquidity_analysis.png" alt="Liquidity Analysis">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Vùng Giao dịch</div>
+                        <img src="../charts/additional_analysis/trading_zones.png" alt="Trading Zones">
+                    </div>
+                </div>
+                
+                <div class="analysis-text">
+                    <h3>⚡ Phân tích Chuyên sâu:</h3>
+                    <p><strong>Risk Assessment:</strong> VaR 0.0011, risk level thấp. Maximum drawdown controlled, overall risk: LOW.</p>
+                    <p><strong>Performance Scores:</strong> Performance 52.2/100, Liquidity 84.2/100, Stability 96.6/100.</p>
+                    <p><strong>Liquidity:</strong> Tính thanh khoản tốt, spread bid-ask ổn định, VWAP tracking hiệu quả.</p>
+                    <p><strong>Trading Zones:</strong> Volume profile cho thấy vùng 45.6-45.7 là POC (Point of Control) chính.</p>
+                </div>
+            </div>
+
+            <!-- DOMINUS AI Recommendation -->
+            <div class="recommendation">
+                <h3>🤖 Khuyến nghị DOMINUS AI</h3>
+                <p><strong>Xu hướng ngắn hạn:</strong> TÍCH CỰC - Giá có xu hướng tăng, test vùng kháng cự 45.80.</p>
+                <p><strong>Điểm vào:</strong> 45.35-45.50 (vùng support mạnh)</p>
+                <p><strong>Target 1:</strong> 45.90 (resistance gần) | <strong>Target 2:</strong> 46.20 (resistance xa)</p>
+                <p><strong>Stop Loss:</strong> 45.15 (dưới support chính)</p>
+                <p><strong>Khuyến nghị:</strong> <strong>MUA TÍCH LŨY</strong> - CTG là cổ phiếu ngân hàng chất lượng với fundamentals mạnh.</p>
+            </div>
+
+            <div class="risk-warning">
+                <h3>⚠️ Cảnh báo Rủi ro</h3>
+                <p>• Theo dõi diễn biến lãi suất và chính sách tiền tệ</p>
+                <p>• Chú ý tỷ lệ mua/bán 0.68 cho thấy áp lực bán</p>
+                <p>• Volume giảm về cuối phiên cần quan sát thêm</p>
+                <p>• Rủi ro từ sector ngân hàng và chu kỳ kinh tế</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📊 Báo cáo được tạo bởi DOMINUS AI Analysis System</p>
+            <p>VNStock Automation | Vietnamese Stock Market Intelligence</p>
+            <div class="timestamp">
+                Cập nhật: 2025-07-24 14:23:34 | Charts: 23/23 | Analysis: COMPLETE
+            </div>
+        </div>
+    </div>
+</body>
+</html>

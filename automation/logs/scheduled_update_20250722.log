@@ -1,0 +1,27 @@
+2025-07-22 09:09:46,062 - INFO - ✅ Loaded config: 3 active stocks
+2025-07-22 09:09:46,093 - INFO - 🚀 Starting quick update for 3 stocks (parallel: 3)
+2025-07-22 09:10:08,807 - INFO - ✅ VHM updated successfully (quick) - 22.7s
+2025-07-22 09:10:08,807 - INFO - ✅ VIX updated successfully (quick) - 22.7s
+2025-07-22 09:10:08,857 - INFO - ✅ DIG updated successfully (quick) - 22.8s
+2025-07-22 09:10:08,857 - INFO - 📊 Update completed - Success: 3, Failed: 0, Total time: 22.8s
+2025-07-22 09:10:08,857 - INFO -   ✅ VHM: 22.7s
+2025-07-22 09:10:08,857 - INFO -   ✅ VIX: 22.7s
+2025-07-22 09:10:08,857 - INFO -   ✅ DIG: 22.8s
+2025-07-22 09:10:55,655 - INFO - SUCCESS Loaded config: 3 active stocks
+2025-07-22 09:10:55,667 - INFO - STARTING quick update for 3 stocks (parallel: 3)
+2025-07-22 09:11:02,296 - INFO - SUCCESS VHM updated successfully (quick) - 6.6s
+2025-07-22 09:11:08,044 - INFO - SUCCESS VIX updated successfully (quick) - 12.4s
+2025-07-22 09:11:22,814 - INFO - SUCCESS DIG updated successfully (quick) - 27.1s
+2025-07-22 09:11:22,814 - INFO - COMPLETED Update - Success: 3, Failed: 0, Total time: 27.1s
+2025-07-22 09:11:22,814 - INFO -   SUCCESS VHM: 6.6s
+2025-07-22 09:11:22,814 - INFO -   SUCCESS VIX: 12.4s
+2025-07-22 09:11:22,814 - INFO -   SUCCESS DIG: 27.1s
+2025-07-22 09:17:11,993 - INFO - SUCCESS Loaded config: 3 active stocks
+2025-07-22 09:17:11,993 - INFO - STARTING quick update for 3 stocks (parallel: 3)
+2025-07-22 09:17:19,108 - INFO - SUCCESS DIG updated successfully (quick) - 7.1s
+2025-07-22 09:17:23,407 - INFO - SUCCESS VIX updated successfully (quick) - 11.4s
+2025-07-22 09:17:34,679 - INFO - SUCCESS VHM updated successfully (quick) - 22.7s
+2025-07-22 09:17:34,679 - INFO - COMPLETED Update - Success: 3, Failed: 0, Total time: 22.7s
+2025-07-22 09:17:34,679 - INFO -   SUCCESS DIG: 7.1s
+2025-07-22 09:17:34,679 - INFO -   SUCCESS VIX: 11.4s
+2025-07-22 09:17:34,679 - INFO -   SUCCESS VHM: 22.7s

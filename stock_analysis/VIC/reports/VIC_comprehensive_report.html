@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIC - Báo cáo Phân tích Toàn diện</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .metric-card {
+            background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(107, 115, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .metric-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        .section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+        }
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .chart-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+        .analysis-text {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+            margin-bottom: 20px;
+        }
+        .recommendation {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .recommendation h3 {
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        .risk-warning {
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .timestamp {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 VIC - Tập đoàn Vingroup</h1>
+            <div class="subtitle">Báo cáo Phân tích Toàn diện | 20/07/2025</div>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value">119.0</div>
+                <div class="metric-label">Giá hiện tại (VND)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">-4.6%</div>
+                <div class="metric-label">Thay đổi từ mở cửa</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">7,709</div>
+                <div class="metric-label">Tổng giao dịch</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">9.47%</div>
+                <div class="metric-label">ROE (%)</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📈 Biểu đồ Cơ bản (Key Charts)</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Xu hướng Giá Intraday</div>
+                    <img src="../charts/key_charts/price_trend.png" alt="Price Trend">
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Khối lượng theo Giờ</div>
+                    <img src="../charts/key_charts/volume_by_hour.png" alt="Volume by Hour">
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Tỷ lệ Mua/Bán</div>
+                    <img src="../charts/key_charts/buy_vs_sell.png" alt="Buy vs Sell">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Phân tích Kỹ thuật (Technical Analysis)</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Phân tích Giá Toàn diện</div>
+                    <img src="../charts/technical_analysis/comprehensive_price_analysis.png" alt="Comprehensive Price Analysis">
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Phân tích Khối lượng</div>
+                    <img src="../charts/technical_analysis/volume_analysis.png" alt="Volume Analysis">
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Chỉ báo Kỹ thuật</div>
+                    <img src="../charts/technical_analysis/technical_indicators.png" alt="Technical Indicators">
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Tâm lý Thị trường</div>
+                    <img src="../charts/technical_analysis/market_sentiment.png" alt="Market Sentiment">
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Tóm tắt Giao dịch</div>
+                    <img src="../charts/technical_analysis/trading_summary.png" alt="Trading Summary">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💰 Phân tích Tài chính (Financial Analysis)</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Dashboard Sức khỏe Tài chính</div>
+                    <img src="../charts/financial_analysis/financial_health_dashboard.png" alt="Financial Health Dashboard">
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Phân tích Khả năng Sinh lời</div>
+                    <img src="../charts/financial_analysis/profitability_analysis.png" alt="Profitability Analysis">
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Chỉ số Đặc thù Bất động sản</div>
+                    <img src="../charts/financial_analysis/real_estate_specific_metrics.png" alt="Real Estate Metrics">
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">So sánh Đồng nghiệp</div>
+                    <img src="../charts/financial_analysis/peer_comparison.png" alt="Peer Comparison">
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Xu hướng Tài chính</div>
+                    <img src="../charts/financial_analysis/financial_trends.png" alt="Financial Trends">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Phân tích Bổ sung (Additional Analysis)</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Phân tích Hành động Giá</div>
+                    <img src="../charts/additional_analysis/price_action_analysis.png" alt="Price Action Analysis">
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Phân tích Thanh khoản</div>
+                    <img src="../charts/additional_analysis/liquidity_analysis.png" alt="Liquidity Analysis">
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Đánh giá Rủi ro</div>
+                    <img src="../charts/additional_analysis/risk_assessment.png" alt="Risk Assessment">
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Vùng Giao dịch</div>
+                    <img src="../charts/additional_analysis/trading_zones.png" alt="Trading Zones">
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Dashboard Hiệu suất</div>
+                    <img src="../charts/additional_analysis/performance_dashboard.png" alt="Performance Dashboard">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Phân tích Tổng quan</h2>
+            <div class="analysis-text">
+                <h3>🎯 Điểm Nổi bật:</h3>
+                <ul>
+                    <li><strong>Giá cổ phiếu:</strong> VIC đang giao dịch ở mức 119.0 VND, giảm 4.6% so với mở cửa</li>
+                    <li><strong>Thanh khoản:</strong> 7,709 giao dịch trong phiên, thể hiện thanh khoản tốt</li>
+                    <li><strong>ROE:</strong> 9.47% - mức khá tốt trong ngành bất động sản</li>
+                    <li><strong>Biên lợi nhuận:</strong> 6.3% cho thấy khả năng kiếm lời ổn định</li>
+                </ul>
+            </div>
+            
+            <div class="analysis-text">
+                <h3>📈 Phân tích Kỹ thuật:</h3>
+                <ul>
+                    <li>Cổ phiếu đang trong xu hướng điều chỉnh ngắn hạn</li>
+                    <li>Khối lượng giao dịch tập trung vào đầu phiên</li>
+                    <li>Áp lực bán nhiều hơn áp lực mua trong phiên</li>
+                    <li>Hỗ trợ quan trọng tại vùng 115-118 VND</li>
+                </ul>
+            </div>
+
+            <div class="analysis-text">
+                <h3>💼 Phân tích Cơ bản:</h3>
+                <ul>
+                    <li>Vingroup là tập đoàn đa ngành hàng đầu Việt Nam</li>
+                    <li>Có vị thế mạnh trong bất động sản và bán lẻ</li>
+                    <li>Đang chuyển đổi mạnh sang công nghệ và ô tô điện</li>
+                    <li>Tỷ số nợ/vốn chủ sở hữu ở mức an toàn: 4.44</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="recommendation">
+            <h3>🎯 KHUYẾN NGHỊ ĐẦU TƯ</h3>
+            <p><strong>HOLD/BUY DIP</strong></p>
+            <p><strong>Target Price:</strong> 128-132 VND (trung hạn 3-6 tháng)</p>
+            <p><strong>Stop Loss:</strong> 112 VND</p>
+            <p><strong>Timeframe:</strong> 3-6 tháng</p>
+            <p><strong>Độ tin cậy:</strong> 75%</p>
+        </div>
+
+        <div class="risk-warning">
+            <h3>⚠️ Cảnh báo Rủi ro</h3>
+            <p><strong>Rủi ro ngắn hạn:</strong> Áp lực bán có thể tiếp tục do tâm lý thị trường</p>
+            <p><strong>Rủi ro trung hạn:</strong> Ảnh hưởng từ chính sách tiền tệ và lãi suất</p>
+            <p><strong>Cơ hội:</strong> Định giá hấp dẫn sau đợt điều chỉnh, tiềm năng phục hồi kinh tế</p>
+        </div>
+
+        <div class="timestamp">
+            <p>📅 Báo cáo được tạo: 20/07/2025 22:13 | 🤖 DOMINUS AGENT v6.0</p>
+            <p>💾 Tổng số biểu đồ: 18 | 📊 Dữ liệu: 7,709 điểm giao dịch</p>
+        </div>
+    </div>
+</body>
+</html>

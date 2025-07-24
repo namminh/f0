@@ -1,0 +1,35 @@
+{
+    "active_stocks": [
+        "CTG",
+        "DIG",
+        "GEX",
+        "VHM",
+        "VIC",
+        "VIX",
+        "VJC",
+        "VRE"
+    ],
+    "update_frequency": {
+        "quick_update": 300,
+        "full_analysis": 1800,
+        "daily_report": "15:30"
+    },
+    "market_hours": {
+        "start": "09:00",
+        "end": "15:00",
+        "days": [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday"
+        ]
+    },
+    "parallel_workers": 3,
+    "retry_attempts": 2,
+    "notification": {
+        "enabled": true,
+        "success_summary": true,
+        "error_alerts": true
+    }
+}

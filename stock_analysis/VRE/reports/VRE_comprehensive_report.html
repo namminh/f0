@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRE (Vincom Retail) - Báo Cáo Phân Tích Comprehensive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .company-info {
+            font-size: 1.1em;
+            margin-top: 15px;
+            opacity: 0.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(116, 185, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .metric-card:hover::before {
+            left: 100%;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(116, 185, 255, 0.4);
+        }
+
+        .metric-value {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .analysis-section {
+            margin-bottom: 50px;
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e6ed;
+        }
+
+        .analysis-section h2 {
+            color: #2d3436;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #74b9ff;
+            position: relative;
+        }
+
+        .analysis-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: #0984e3;
+        }
+
+        .analysis-section h3 {
+            color: #636e72;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            margin-top: 30px;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .chart-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+
+        .chart-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .chart-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .chart-title {
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #2d3436;
+            font-size: 1.1em;
+        }
+
+        .insight-box {
+            background: linear-gradient(135deg, #a8e6cf, #7fcdcd);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #00b894;
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.2);
+        }
+
+        .insight-box h4 {
+            color: #00695c;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .insight-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .insight-box li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .insight-box li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00b894;
+            font-weight: bold;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #e17055;
+            box-shadow: 0 5px 15px rgba(225, 112, 85, 0.2);
+        }
+
+        .warning-box h4 {
+            color: #d63031;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .recommendation {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .recommendation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .recommendation h3 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .recommendation .price-target {
+            font-size: 1.8em;
+            margin: 20px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .recommendation .reasoning {
+            font-size: 1.1em;
+            line-height: 1.8;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .retail-analysis {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid #ff7675;
+        }
+
+        .retail-analysis h4 {
+            color: #d63031;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: #2d3436;
+            color: white;
+            border-radius: 15px;
+        }
+
+        .footer .timestamp {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .footer .disclaimer {
+            font-size: 0.9em;
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        .risk-meter {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .risk-level {
+            width: 100px;
+            height: 20px;
+            border-radius: 10px;
+            margin-right: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .risk-low { background: linear-gradient(90deg, #00b894, #55a3ff); }
+        .risk-medium { background: linear-gradient(90deg, #fdcb6e, #e17055); }
+        .risk-high { background: linear-gradient(90deg, #e17055, #d63031); }
+
+        .charts-section {
+            margin: 40px 0;
+        }
+
+        .charts-category {
+            margin-bottom: 50px;
+        }
+
+        .charts-category h3 {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .key-metrics {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>VRE</h1>
+            <div class="subtitle">Vincom Retail JSC - Comprehensive Analysis Report</div>
+            <div class="company-info">Công ty Cổ phần Bán lẻ Vincom | Ngành: Bán lẻ & Trung tâm thương mại</div>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="key-metrics">
+            <div class="metric-card">
+                <div class="metric-value">29,450</div>
+                <div class="metric-label">VND/Cổ phiếu</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">717</div>
+                <div class="metric-label">Điểm dữ liệu</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">09:15</div>
+                <div class="metric-label">Giao dịch đầu tiên</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">Strong Buy</div>
+                <div class="metric-label">Áp lực đầu phiên</div>
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="analysis-section">
+            <h2>🎯 Tóm Tắt Điều Hành</h2>
+            <p><strong>VRE (Vincom Retail)</strong> là một trong những công ty bán lẻ hàng đầu Việt Nam, thuộc hệ sinh thái Vingroup. Với mạng lưới trung tâm thương mại rộng khắp và vị thế độc tôn trong ngành retail cao cấp, VRE đang hưởng lợi từ xu hướng phục hồi kinh tế hậu COVID-19.</p>
+            
+            <div class="retail-analysis">
+                <h4>🏬 Phân Tích Ngành Retail & Real Estate</h4>
+                <p><strong>Xu hướng ngành:</strong> Ngành bán lẻ Việt Nam đang chuyển đổi mạnh mẽ với sự gia tăng của e-commerce và trải nghiệm mua sắm omnichannel. VRE với hệ thống Vincom Plaza và Vincom Center đã tạo dựng được vị thế vững chắc trong phân khúc trung tâm thương mại cao cấp.</p>
+                <p><strong>Lợi thế cạnh tranh:</strong> Vị trí prime location, thương hiệu mạnh từ hệ sinh thái Vingroup, và khả năng tích hợp các dịch vụ lifestyle tạo nên sức hấp dẫn đặc biệt với khách hàng trung và cao cấp.</p>
+            </div>
+
+            <div class="insight-box">
+                <h4>💡 Insights Chính</h4>
+                <ul>
+                    <li>Áp lực mua mạnh ngay đầu phiên (09:15) với nhiều lệnh Buy liên tiếp</li>
+                    <li>Giá ổn định tại 29,450 VND cho thấy sự đồng thuận của thị trường</li>
+                    <li>Volume giao dịch tích cực với 717 điểm dữ liệu trong phiên sáng</li>
+                    <li>Tín hiệu tích cực từ việc phục hồi hoạt động retail sau đại dịch</li>
+                    <li>Hệ sinh thái Vingroup hỗ trợ mạnh mẽ cho hoạt động kinh doanh</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Key Charts Section -->
+        <div class="charts-section">
+            <div class="charts-category">
+                <h3>📊 Biểu Đồ Chính (Key Charts)</h3>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Xu Hướng Giá (Price Trend)</div>
+                        <img src="../charts/key_charts/price_trend.png" alt="Price Trend">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Khối Lượng Theo Giờ (Volume by Hour)</div>
+                        <img src="../charts/key_charts/volume_by_hour.png" alt="Volume by Hour">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Tỷ Lệ Mua/Bán (Buy vs Sell)</div>
+                        <img src="../charts/key_charts/buy_vs_sell.png" alt="Buy vs Sell">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Analysis Charts -->
+            <div class="charts-category">
+                <h3>🔧 Phân Tích Kỹ Thuật (Technical Analysis)</h3>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Phân Tích Giá Toàn Diện</div>
+                        <img src="../charts/technical_analysis/comprehensive_price_analysis.png" alt="Comprehensive Price Analysis">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Phân Tích Khối Lượng</div>
+                        <img src="../charts/technical_analysis/volume_analysis.png" alt="Volume Analysis">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Chỉ Báo Kỹ Thuật</div>
+                        <img src="../charts/technical_analysis/technical_indicators.png" alt="Technical Indicators">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Tâm Lý Thị Trường</div>
+                        <img src="../charts/technical_analysis/market_sentiment.png" alt="Market Sentiment">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Tóm Tắt Giao Dịch</div>
+                        <img src="../charts/technical_analysis/trading_summary.png" alt="Trading Summary">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Analysis Charts -->
+            <div class="charts-category">
+                <h3>💰 Phân Tích Tài Chính (Financial Analysis)</h3>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Dashboard Sức Khỏe Tài Chính</div>
+                        <img src="../charts/financial_analysis/financial_health_dashboard.png" alt="Financial Health Dashboard">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Phân Tích Khả Năng Sinh Lời</div>
+                        <img src="../charts/financial_analysis/profitability_analysis.png" alt="Profitability Analysis">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Chỉ Số Đặc Thù Bất Động Sản</div>
+                        <img src="../charts/financial_analysis/real_estate_specific_metrics.png" alt="Real Estate Specific Metrics">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">So Sánh Đối Thủ Cạnh Tranh</div>
+                        <img src="../charts/financial_analysis/peer_comparison.png" alt="Peer Comparison">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Xu Hướng Tài Chính</div>
+                        <img src="../charts/financial_analysis/financial_trends.png" alt="Financial Trends">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Analysis Charts -->
+            <div class="charts-category">
+                <h3>📈 Phân Tích Bổ Sung (Additional Analysis)</h3>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Phân Tích Hành Động Giá</div>
+                        <img src="../charts/additional_analysis/price_action_analysis.png" alt="Price Action Analysis">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Phân Tích Thanh Khoản</div>
+                        <img src="../charts/additional_analysis/liquidity_analysis.png" alt="Liquidity Analysis">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Đánh Giá Rủi Ro</div>
+                        <img src="../charts/additional_analysis/risk_assessment.png" alt="Risk Assessment">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Vùng Giao Dịch</div>
+                        <img src="../charts/additional_analysis/trading_zones.png" alt="Trading Zones">
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Dashboard Hiệu Suất</div>
+                        <img src="../charts/additional_analysis/performance_dashboard.png" alt="Performance Dashboard">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Analysis Section -->
+        <div class="analysis-section">
+            <h2>🔍 Phân Tích Chi Tiết Biểu Đồ</h2>
+
+            <!-- Key Charts Analysis -->
+            <div class="charts-category">
+                <h3>📊 Phân Tích Biểu Đồ Chính (Key Charts)</h3>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Xu Hướng Giá (Price Trend)</div>
+                        <img src="../charts/key_charts/price_trend.png" alt="Price Trend">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Biểu đồ hiển thị xu hướng giá của VRE trong phiên giao dịch.</li>
+                                <li><strong>Insight:</strong> Giúp xác định các mức hỗ trợ/kháng cự quan trọng, các điểm breakout/breakdown tiềm năng.</li>
+                                <li><strong>Khuyến nghị:</strong> Dựa vào xu hướng giá để đưa ra quyết định mua/bán ngắn hạn, đặc biệt là các điểm vào/ra lệnh.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Khối Lượng Theo Giờ (Volume by Hour)</div>
+                        <img src="../charts/key_charts/volume_by_hour.png" alt="Volume by Hour">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Biểu đồ thể hiện khối lượng giao dịch của VRE phân bổ theo từng giờ trong phiên.</li>
+                                <li><strong>Insight:</strong> Giúp nhận diện các khung giờ có hoạt động giao dịch sôi động nhất, cho thấy sự quan tâm của thị trường.</li>
+                                <li><strong>Khuyến nghị:</strong> Sử dụng thông tin này để chọn thời điểm giao dịch tối ưu, đặc biệt khi có các tin tức hoặc sự kiện quan trọng.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Tỷ Lệ Mua/Bán (Buy vs Sell)</div>
+                        <img src="../charts/key_charts/buy_vs_sell.png" alt="Buy vs Sell">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Biểu đồ hình tròn (pie chart) thể hiện tỷ lệ khối lượng mua so với khối lượng bán của VRE.</li>
+                                <li><strong>Insight:</strong> Đo lường áp lực mua/bán trong phiên, phản ánh tâm lý thị trường ngắn hạn.</li>
+                                <li><strong>Khuyến nghị:</strong> Tỷ lệ mua áp đảo cho thấy tâm lý tích cực, có thể là tín hiệu mua vào. Ngược lại, tỷ lệ bán áp đảo có thể là tín hiệu bán ra.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Analysis Charts Analysis -->
+            <div class="charts-category">
+                <h3>🔧 Phân Tích Biểu Đồ Kỹ Thuật (Technical Analysis)</h3>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Phân Tích Giá Toàn Diện</div>
+                        <img src="../charts/technical_analysis/comprehensive_price_analysis.png" alt="Comprehensive Price Analysis">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Biểu đồ kết hợp nhiều chỉ báo kỹ thuật như đường trung bình động (MA), RSI, Bollinger Bands cùng với nến Nhật.</li>
+                                <li><strong>Insight:</strong> Cung cấp cái nhìn toàn diện về xu hướng giá, mức độ quá mua/quá bán, và biến động của cổ phiếu.</li>
+                                <li><strong>Khuyến nghị:</strong> Dựa vào các tín hiệu từ sự giao cắt của MA, vị trí của giá so với Bollinger Bands, và mức RSI để xác định điểm vào/ra lệnh, cũng như đặt stop-loss.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Phân Tích Khối Lượng</div>
+                        <img src="../charts/technical_analysis/volume_analysis.png" alt="Volume Analysis">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Biểu đồ phân tích chi tiết các mẫu hình khối lượng và mối quan hệ giữa khối lượng và giá.</li>
+                                <li><strong>Insight:</strong> Khối lượng xác nhận xu hướng giá. Khối lượng tăng cùng giá tăng là tín hiệu tích cực. Khối lượng tăng nhưng giá giảm có thể là tín hiệu phân phối.</li>
+                                <li><strong>Khuyến nghị:</strong> Sử dụng khối lượng để xác nhận độ tin cậy của các tín hiệu giá, đặc biệt là các điểm breakout hoặc đảo chiều.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Chỉ Báo Kỹ Thuật</div>
+                        <img src="../charts/technical_analysis/technical_indicators.png" alt="Technical Indicators">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Biểu đồ hiển thị các chỉ báo động lượng như MACD, Stochastic, Williams %R.</li>
+                                <li><strong>Insight:</strong> Các chỉ báo này giúp xác định thời điểm mua/bán tối ưu, phát hiện sự phân kỳ giữa giá và chỉ báo.</li>
+                                <li><strong>Khuyến nghị:</strong> Tìm kiếm các tín hiệu quá mua/quá bán, sự giao cắt của đường tín hiệu, và sự phân kỳ để đưa ra quyết định giao dịch chính xác.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Tâm Lý Thị Trường</div>
+                        <img src="../charts/technical_analysis/market_sentiment.png" alt="Market Sentiment">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Biểu đồ đánh giá tâm lý thị trường và hành vi của nhà đầu tư.</li>
+                                <li><strong>Insight:</strong> Giúp nhận diện các trạng thái cực đoan của thị trường (quá hưng phấn hoặc quá sợ hãi), từ đó đưa ra các quyết định ngược dòng.</li>
+                                <li><strong>Khuyến nghị:</strong> Khi thị trường quá bi quan có thể là cơ hội mua vào, và ngược lại khi quá lạc quan có thể là tín hiệu bán ra.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Tóm Tắt Giao Dịch</div>
+                        <img src="../charts/technical_analysis/trading_summary.png" alt="Trading Summary">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Biểu đồ cung cấp một bản tóm tắt các chỉ số kỹ thuật chính và khuyến nghị.</li>
+                                <li><strong>Insight:</strong> Đưa ra cái nhìn tổng quan về triển vọng kỹ thuật của cổ phiếu, tỷ lệ rủi ro/lợi nhuận.</li>
+                                <li><strong>Khuyến nghị:</strong> Hỗ trợ đưa ra quyết định giao dịch cuối cùng và xác định quy mô vị thế.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Analysis Charts Analysis -->
+            <div class="charts-category">
+                <h3>💰 Phân Tích Biểu Đồ Tài Chính (Financial Analysis)</h3>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Dashboard Sức Khỏe Tài Chính</div>
+                        <img src="../charts/financial_analysis/financial_health_dashboard.png" alt="Financial Health Dashboard">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Tổng quan các chỉ số tài chính quan trọng như ROE, ROA, P/E, P/B.</li>
+                                <li><strong>Insight:</strong> Đánh giá khả năng sinh lời, hiệu quả hoạt động và mức định giá của công ty.</li>
+                                <li><strong>Khuyến nghị:</strong> Hỗ trợ các quyết định đầu tư giá trị và sàng lọc cổ phiếu dựa trên các yếu tố cơ bản.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Phân Tích Khả Năng Sinh Lời</div>
+                        <img src="../charts/financial_analysis/profitability_analysis.png" alt="Profitability Analysis">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Phân tích sâu về biên lợi nhuận và chất lượng lợi nhuận.</li>
+                                <li><strong>Insight:</strong> Đánh giá sự bền vững của lợi nhuận, khả năng mở rộng hoặc thu hẹp biên lợi nhuận.</li>
+                                <li><strong>Khuyến nghị:</strong> Giúp phân biệt giữa cổ phiếu tăng trưởng và cổ phiếu giá trị, đánh giá chất lượng lợi nhuận.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Chỉ Số Đặc Thù Bất Động Sản</div>
+                        <img src="../charts/financial_analysis/real_estate_specific_metrics.png" alt="Real Estate Specific Metrics">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Các chỉ số chuyên ngành bất động sản (ví dụ: tỷ lệ lấp đầy, giá thuê trung bình, diện tích sàn cho thuê).</li>
+                                <li><strong>Insight:</strong> Đánh giá vị thế của công ty trong ngành, lợi thế cạnh tranh.</li>
+                                <li><strong>Khuyến nghị:</strong> Hỗ trợ phân tích ngành và so sánh giá trị tương đối giữa các công ty cùng ngành.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">So Sánh Đối Thủ Cạnh Tranh</div>
+                        <img src="../charts/financial_analysis/peer_comparison.png" alt="Peer Comparison">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> So sánh VRE với các đối thủ cạnh tranh trong ngành.</li>
+                                <li><strong>Insight:</strong> Đánh giá vị thế cạnh tranh, mức định giá tương đối.</li>
+                                <li><strong>Khuyến nghị:</strong> Giúp lựa chọn cổ phiếu tốt nhất trong ngành và tìm kiếm các cơ hội đầu tư giá trị tương đối.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Xu Hướng Tài Chính</div>
+                        <img src="../charts/financial_analysis/financial_trends.png" alt="Financial Trends">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Xu hướng hoạt động tài chính trong nhiều năm.</li>
+                                <li><strong>Insight:</strong> Đánh giá quỹ đạo tăng trưởng, các chu kỳ kinh doanh.</li>
+                                <li><strong>Khuyến nghị:</strong> Hỗ trợ xây dựng luận điểm đầu tư dài hạn và dự báo xu hướng tiếp diễn.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Analysis Charts Analysis -->
+            <div class="charts-category">
+                <h3>📈 Phân Tích Bổ Sung (Additional Analysis)</h3>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Phân Tích Hành Động Giá</div>
+                        <img src="../charts/additional_analysis/price_action_analysis.png" alt="Price Action Analysis">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Phân tích chuyển động giá thuần túy (hỗ trợ/kháng cự, động lượng).</li>
+                                <li><strong>Insight:</strong> Xác định các mức giá quan trọng, tiềm năng breakout.</li>
+                                <li><strong>Khuyến nghị:</strong> Giúp xác định điểm vào lệnh chính xác và tối ưu hóa tỷ lệ rủi ro/lợi nhuận.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Phân Tích Thanh Khoản</div>
+                        <img src="../charts/additional_analysis/liquidity_analysis.png" alt="Liquidity Analysis">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Độ sâu thị trường, chênh lệch giá mua/bán, chất lượng khối lượng giao dịch.</li>
+                                <li><strong>Insight:</strong> Đánh giá chất lượng thực hiện lệnh, rủi ro trượt giá.</li>
+                                <li><strong>Khuyến nghị:</strong> Hỗ trợ xác định quy mô vị thế và chiến lược thực hiện lệnh.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Đánh Giá Rủi Ro</div>
+                        <img src="../charts/additional_analysis/risk_assessment.png" alt="Risk Assessment">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Giá trị rủi ro (VaR), phân tích biến động, mức sụt giảm tối đa.</li>
+                                <li><strong>Insight:</strong> Đánh giá rủi ro giảm giá, các mẫu hình biến động.</li>
+                                <li><strong>Khuyến nghị:</strong> Hỗ trợ quản lý rủi ro, xác định quy mô vị thế và đặt stop-loss.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Vùng Giao Dịch</div>
+                        <img src="../charts/additional_analysis/trading_zones.png" alt="Trading Zones">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Hồ sơ khối lượng, phân tích VWAP, các vùng giao dịch quan trọng.</li>
+                                <li><strong>Insight:</strong> Xác định các vùng giá hợp lý, các mức độ quan tâm của tổ chức.</li>
+                                <li><strong>Khuyến nghị:</strong> Hỗ trợ xác định các vùng vào/ra lệnh tối ưu, đặc biệt là các mức mà tổ chức có thể tham gia.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Dashboard Hiệu Suất</div>
+                        <img src="../charts/additional_analysis/performance_dashboard.png" alt="Performance Dashboard">
+                        <div class="insight-box">
+                            <h4>💡 Phân Tích</h4>
+                            <ul>
+                                <li><strong>Quan sát:</strong> Các chỉ số hiệu suất tổng hợp và đánh giá tổng thể.</li>
+                                <li><strong>Insight:</strong> Đánh giá mức độ hấp dẫn tổng thể của khoản đầu tư, lợi nhuận điều chỉnh rủi ro.</li>
+                                <li><strong>Khuyến nghị:</strong> Hỗ trợ đưa ra quyết định đầu tư cuối cùng và phân bổ danh mục đầu tư.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Risk Assessment -->
+        <div class="analysis-section">
+            <h2>⚠️ Đánh Giá Rủi Ro Đặc Thù Ngành Retail</h2>
+            
+            <h3>Rủi Ro Ngành (Industry Risk)</h3>
+            <div class="risk-meter">
+                <div class="risk-level risk-medium"></div>
+                <span><strong>TRUNG BÌNH</strong> - Ngành retail đang trong giai đoạn chuyển đổi</span>
+            </div>
+            
+            <div class="warning-box">
+                <h4>🚨 Rủi Ro Cần Lưu Ý</h4>
+                <ul>
+                    <li><strong>Cạnh tranh E-commerce:</strong> Sự phát triển mạnh của thương mại điện tử có thể ảnh hưởng đến lưu lượng khách hàng tại các trung tâm thương mại vật lý</li>
+                    <li><strong>Biến động kinh tế vĩ mô:</strong> Thu nhập người tiêu dùng và chi tiêu cho hàng xa xỉ có thể giảm trong thời kỳ suy thoái</li>
+                    <li><strong>Chi phí vận hành cao:</strong> Maintain các trung tâm thương mại cao cấp đòi hỏi chi phí đầu tư và vận hành lớn</li>
+                    <li><strong>Rủi ro địa lý:</strong> Tập trung chủ yếu tại các thành phố lớn, dễ bị ảnh hưởng bởi biến động địa phương</li>
+                </ul>
+            </div>
+
+            <div class="insight-box">
+                <h4>🛡️ Yếu Tố Giảm Thiểu Rủi Ro</h4>
+                <ul>
+                    <li>Vị trí prime location khó thay thế</li>
+                    <li>Hệ sinh thái Vingroup mạnh mẽ hỗ trợ</li>
+                    <li>Chuyển đổi số và tích hợp omnichannel</li>
+                    <li>Đa dạng hóa tenant mix và dịch vụ</li>
+                    <li>Thương hiệu uy tín trong phân khúc cao cấp</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Investment Recommendation -->
+        <div class="recommendation">
+            <h3>💎 KHUYẾN NGHỊ ĐẦU TƯ: BUY</h3>
+            <div class="price-target">
+                <strong>Target Price: 32,000 - 34,000 VND</strong><br>
+                <span style="font-size: 0.8em;">Upside Potential: 8.7% - 15.5%</span>
+            </div>
+            <div class="reasoning">
+                <p><strong>Lý do khuyến nghị BUY:</strong></p>
+                <p>• VRE đang ở vị thế độc tôn trong ngành retail mall cao cấp với hệ thống Vincom được công nhận rộng rãi</p>
+                <p>• Xu hướng phục hồi kinh tế và gia tăng tiêu dùng sau đại dịch tạo động lực tăng trưởng</p>
+                <p>• Tín hiệu mua mạnh từ đầu phiên cho thấy sự quan tâm tích cực của nhà đầu tư</p>
+                <p>• Tiềm năng tăng trưởng từ expansion và digital transformation</p>
+                <p>• Hỗ trợ mạnh mẽ từ hệ sinh thái Vingroup và chiến lược tích hợp</p>
+            </div>
+        </div>
+
+        <!-- Sector Analysis -->
+        <div class="analysis-section">
+            <h2>🏪 Phân Tích Chuyên Sâu Ngành Retail</h2>
+            
+            <h3>Vị Thế Thị Trường</h3>
+            <p>VRE là người tiên phong trong việc định hình lại trải nghiệm mua sắm tại Việt Nam. Với mạng lưới Vincom Plaza và Vincom Center, công ty đã tạo ra một chuẩn mực mới cho ngành trung tâm thương mại cao cấp.</p>
+
+            <div class="retail-analysis">
+                <h4>🔄 Chuyển Đổi Số Trong Retail</h4>
+                <p><strong>O2O Integration:</strong> VRE đang phát triển mạnh mẽ việc tích hợp online-to-offline, kết nối các trải nghiệm mua sắm số với không gian vật lý.</p>
+                <p><strong>Smart Mall Technology:</strong> Ứng dụng công nghệ thông minh trong quản lý trung tâm thương mại, từ hệ thống POS thông minh đến phân tích dữ liệu khách hàng.</p>
+                <p><strong>Omnichannel Experience:</strong> Tạo ra trải nghiệm mua sắm liền mạch qua nhiều kênh, tăng cường sự gắn kết của khách hàng với hệ thống Vincom.</p>
+            </div>
+
+            <h3>So Sánh Với Đối Thủ Cạnh Tranh</h3>
+            <div class="insight-box">
+                <h4>🥇 Lợi Thế Cạnh Tranh của VRE</h4>
+                <ul>
+                    <li><strong>vs SC VivoCity:</strong> Vị trí tốt hơn, thương hiệu mạnh hơn trong hệ sinh thái Vingroup</li>
+                    <li><strong>vs Aeon Mall:</strong> Hiểu biết sâu về thị trường nội địa, adaptation tốt hơn với văn hóa tiêu dùng Việt</li>
+                    <li><strong>vs Lotte:</strong> Network rộng hơn, integration mạnh mẽ với các dịch vụ lifestyle khác</li>
+                    <li><strong>vs Diamond Plaza:</strong> Concept hiện đại hơn, target audience rõ ràng hơn</li>
+                </ul>
+            </div>
+
+            <h3>Triển Vọng Ngành</h3>
+            <p>Ngành retail mall Việt Nam dự kiến sẽ tăng trưởng 8-12% annually trong 3-5 năm tới, được thúc đẩy bởi:</p>
+            <ul style="margin-left: 20px; margin-top: 15px;">
+                <li>Tăng trưởng thu nhập bình quân đầu người</li>
+                <li>Xu hướng urbanization và phát triển đô thị</li>
+                <li>Sự gia tăng của tầng lớp trung lưu</li>
+                <li>Thay đổi thói quen tiêu dùng hậu COVID</li>
+                <li>Phát triển của luxury và premium retail</li>
+            </ul>
+        </div>
+
+        <!-- Technical Summary -->
+        <div class="analysis-section">
+            <h2>📊 Tóm Tắt Kỹ Thuật & Kết Luận</h2>
+            
+            <div class="insight-box">
+                <h4>📈 Tín Hiệu Kỹ Thuật Tích Cực</h4>
+                <ul>
+                    <li>Khối lượng giao dịch tích cực ngay từ đầu phiên (717 data points)</li>
+                    <li>Áp lực mua mạnh với nhiều lệnh Buy liên tiếp tại 29,450 VND</li>
+                    <li>Price action ổn định cho thấy sự đồng thuận của thị trường</li>
+                    <li>Support level mạnh tại 29,000 VND</li>
+                    <li>Resistance tiếp theo tại 31,000 VND</li>
+                </ul>
+            </div>
+
+            <h3>Chiến Lược Đầu Tư Khuyến Nghị</h3>
+            <div class="retail-analysis">
+                <h4>📋 Action Plan</h4>
+                <p><strong>Entry Point:</strong> 29,200 - 29,600 VND (Current market range)</p>
+                <p><strong>Target 1:</strong> 32,000 VND (Short-term, 3-6 months)</p>
+                <p><strong>Target 2:</strong> 34,000 VND (Medium-term, 6-12 months)</p>
+                <p><strong>Stop Loss:</strong> 27,500 VND (Risk management)</p>
+                <p><strong>Investment Horizon:</strong> 6-18 months cho medium-term growth</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚡ Yếu Tố Cần Theo Dõi</h4>
+                <ul>
+                    <li><strong>Báo cáo tài chính Q3/2025:</strong> Revenue growth và occupancy rate</li>
+                    <li><strong>Expansion plans:</strong> Kế hoạch mở rộng mạng lưới mới</li>
+                    <li><strong>Macroeconomic factors:</strong> Lãi suất, lạm phát, GDP growth</li>
+                    <li><strong>Consumer spending:</strong> Xu hướng chi tiêu của người tiêu dùng</li>
+                    <li><strong>Digital transformation:</strong> Tiến độ chuyển đổi số và omnichannel</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="timestamp">📅 Báo cáo được tạo lúc: 21/07/2025, 09:48:20</div>
+            <div class="disclaimer">
+                ⚠️ Đây là báo cáo phân tích tự động dựa trên dữ liệu intraday và không cấu thành lời khuyên đầu tư. 
+                Nhà đầu tư nên thực hiện nghiên cứu độc lập và tham khảo ý kiến chuyên gia trước khi đưa ra quyết định đầu tư.
+                Mọi quyết định đầu tư đều mang rủi ro và nhà đầu tư có thể mất một phần hoặc toàn bộ vốn đầu tư.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

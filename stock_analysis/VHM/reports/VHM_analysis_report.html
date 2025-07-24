@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo cáo Phân tích Cổ phiếu VHM</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .chart-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        .summary {
+            background-color: #f2f2f2;
+            padding: 15px;
+            border-left: 5px solid #007bff;
+            margin-bottom: 20px;
+        }
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .metric-card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        .metric-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <h1>Báo cáo Phân tích Cổ phiếu VHM</h1>
+    
+    <div class="key-metrics">
+        <div class="metric-card">
+            <h4>Giá hiện tại</h4>
+            <div class="metric-value">-- VND</div>
+        </div>
+        <div class="metric-card">
+            <h4>Khối lượng giao dịch</h4>
+            <div class="metric-value">--</div>
+        </div>
+        <div class="metric-card">
+            <h4>Biên độ dao động</h4>
+            <div class="metric-value">-- VND</div>
+        </div>
+        <div class="metric-card">
+            <h4>Tỷ lệ mua/bán</h4>
+            <div class="metric-value">--</div>
+        </div>
+    </div>
+
+    <div class="summary">
+        <h3>Phân tích tổng quan VHM</h3>
+        <p>Báo cáo phân tích được tạo tự động. Dữ liệu sẽ được cập nhật sau khi chạy phân tích.</p>
+    </div>
+
+    <h2>Phân tích Dữ liệu trong ngày</h2>
+    <div class="chart-container">
+        <img src="../charts/key_charts/price_trend.png" alt="Biểu đồ giá trong ngày của VHM">
+        <p><em>Biểu đồ giá trong ngày cho thấy xu hướng giao dịch của VHM</em></p>
+    </div>
+    <div class="chart-container">
+        <img src="../charts/key_charts/volume_by_hour.png" alt="Biểu đồ khối lượng giao dịch theo giờ">
+        <p><em>Phân tích khối lượng giao dịch theo từng giờ trong ngày</em></p>
+    </div>
+    <div class="chart-container">
+        <img src="../charts/key_charts/buy_vs_sell.png" alt="Biểu đồ tỷ lệ khối lượng Mua vs. Bán">
+        <p><em>Tỷ lệ khối lượng giao dịch mua và bán</em></p>
+    </div>
+
+    <h2>Phân tích Tài chính Chi tiết</h2>
+    <div class="chart-container">
+        <img src="../charts/detailed_charts/financial_analysis.png" alt="Phân tích tài chính chi tiết của VHM">
+        <p><em>Phân tích các chỉ số tài chính chính của VHM</em></p>
+    </div>
+    
+    <p><small><em>Báo cáo được tạo tự động từ dữ liệu ngày 24/07/2025</em></small></p>
+
+</body>
+</html>
