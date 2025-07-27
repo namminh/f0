@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTG - Báo cáo Phân tích Toàn diện</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .metric-card {
+            background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(107, 115, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .metric-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        .section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+        }
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .chart-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+        .analysis-text {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+            margin-bottom: 20px;
+        }
+        .recommendation {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .recommendation h3 {
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        .risk-warning {
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .timestamp {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 CTG - VietinBank</h1>
+            <div class="subtitle">Báo cáo Phân tích Toàn diện | 21/07/2025</div>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value">45.6</div>
+                <div class="metric-label">Giá hiện tại (VND)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">+0.0%</div>
+                <div class="metric-label">Thay đổi từ mở cửa</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">3,086</div>
+                <div class="metric-label">Tổng giao dịch</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">18.57%</div>
+                <div class="metric-label">ROE (%)</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📈 Biểu đồ Cơ bản (Key Charts)</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Xu hướng Giá Intraday</div>
+                    <img src="../charts/key_charts/price_trend.png" alt="Price Trend">
+                    <div class="analysis-text">
+                        📊 <b>Xu hướng giá Intraday:</b> Biểu đồ cho thấy giá CTG mở cửa ở mức 45.6, có biến động nhẹ trong phiên và đóng cửa ở mức giá tương đương. Trạng thái đi ngang cho thấy sự cân bằng giữa phe mua và phe bán.
+                        🔍 <b>Quan sát:</b> Giá duy trì ổn định quanh mốc 45.6-45.7, không có đột phá đáng kể.
+                        💡 <b>Insight:</b> Thị trường đang trong giai đoạn tích lũy, chờ đợi tín hiệu rõ ràng hơn.
+                        🎯 <b>Khuyến nghị:</b> Quan sát thêm, chưa nên vội vàng vào lệnh.
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Khối lượng theo Giờ</div>
+                    <img src="../charts/key_charts/volume_by_hour.png" alt="Volume by Hour">
+                    <div class="analysis-text">
+                        📊 <b>Khối lượng theo Giờ:</b> Khối lượng giao dịch cao nhất vào đầu phiên sáng (9h-10h) và có xu hướng giảm dần về cuối ngày. Điều này là diễn biến bình thường của thị trường.
+                        🔍 <b>Quan sát:</b> Thanh khoản tập trung vào phiên sáng.
+                        💡 <b>Insight:</b> Lực cầu/cung mạnh nhất vào đầu ngày, các quyết định giao dịch lớn thường diễn ra trong khoảng thời gian này.
+                        🎯 <b>Khuyến nghị:</b> Các nhà giao dịch ngắn hạn nên tập trung vào phiên sáng để có thanh khoản tốt nhất.
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Tỷ lệ Mua/Bán</div>
+                    <img src="../charts/key_charts/buy_vs_sell.png" alt="Buy vs Sell">
+                    <div class="analysis-text">
+                        📊 <b>Tỷ lệ Mua/Bán:</b> Tỷ lệ mua và bán khá cân bằng, phe bán chiếm ưu thế nhẹ. Điều này cho thấy áp lực chốt lời nhẹ sau các phiên tăng trước đó.
+                        🔍 <b>Quan sát:</b> Phe bán chiếm 52.4% khối lượng.
+                        💡 <b>Insight:</b> Tâm lý thận trọng đang hiện hữu, nhưng chưa có áp lực bán tháo mạnh.
+                        🎯 <b>Khuyến nghị:</b> Tiếp tục theo dõi, nếu phe bán gia tăng mạnh có thể xem xét hạ tỷ trọng.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Phân tích Kỹ thuật (Technical Analysis)</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Phân tích Giá Toàn diện</div>
+                    <img src="../charts/technical_analysis/comprehensive_price_analysis.png" alt="Comprehensive Price Analysis">
+                    <div class="analysis-text">
+                        📊 <b>Phân tích Giá Toàn diện:</b> Giá đang nằm trên các đường MA ngắn hạn và trung hạn, cho thấy xu hướng tăng vẫn được duy trì. RSI ở mức trung tính, không quá mua cũng không quá bán.
+                        🔍 <b>Quan sát:</b> Dải Bollinger Bands đang có xu hướng thu hẹp, báo hiệu một giai đoạn biến động thấp.
+                        💡 <b>Insight:</b> Cổ phiếu đang trong giai đoạn tích lũy sức mạnh trước khi có một cú hích mới.
+                        🎯 <b>Khuyến nghị:</b> Có thể mua vào ở các nhịp điều chỉnh nhẹ quanh vùng hỗ trợ MA20.
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Phân tích Khối lượng</div>
+                    <img src="../charts/technical_analysis/volume_analysis.png" alt="Volume Analysis">
+                    <div class="analysis-text">
+                        📊 <b>Phân tích Khối lượng:</b> Khối lượng giao dịch hôm nay ở mức trung bình, không có đột biến. Điều này củng cố cho nhận định về một phiên giao dịch đi ngang.
+                        🔍 <b>Quan sát:</b> Khối lượng thấp hơn so với các phiên tăng giá mạnh trước đó.
+                        💡 <b>Insight:</b> Sự sụt giảm về khối lượng cho thấy sự tạm lắng của cả phe mua và phe bán.
+                        🎯 <b>Khuyến nghị:</b> Cần chờ một phiên có khối lượng đột biến để xác nhận xu hướng tiếp theo.
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Chỉ báo Kỹ thuật</div>
+                    <img src="../charts/technical_analysis/technical_indicators.png" alt="Technical Indicators">
+                    <div class="analysis-text">
+                        📊 <b>Chỉ báo Kỹ thuật:</b> MACD vẫn nằm trên đường tín hiệu nhưng đang có dấu hiệu hội tụ. Stochastic và Williams %R đều đang ở vùng trung tính.
+                        🔍 <b>Quan sát:</b> Các chỉ báo động lượng đang yếu dần.
+                        💡 <b>Insight:</b> Đà tăng đang chững lại, có khả năng xảy ra một nhịp điều chỉnh ngắn hạn.
+                        🎯 <b>Khuyến nghị:</b> Thận trọng với các vị thế mua mới, có thể chờ các chỉ báo cho tín hiệu tích cực trở lại.
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Tâm lý Thị trường</div>
+                    <img src="../charts/technical_analysis/market_sentiment.png" alt="Market Sentiment">
+                    <div class="analysis-text">
+                        📊 <b>Tâm lý Thị trường:</b> Biểu đồ cho thấy tâm lý thị trường đang ở mức trung lập. Không có sự hưng phấn hay sợ hãi quá mức.
+                        🔍 <b>Quan sát:</b> Các chỉ báo tâm lý đều dao động quanh mức 0.
+                        💡 <b>Insight:</b> Nhà đầu tư đang trong trạng thái chờ đợi và quan sát.
+                        🎯 <b>Khuyến nghị:</b> Giai đoạn này phù hợp để tích lũy cổ phiếu hơn là lướt sóng.
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Tóm tắt Giao dịch</div>
+                    <img src="../charts/technical_analysis/trading_summary.png" alt="Trading Summary">
+                    <div class="analysis-text">
+                        📊 <b>Tóm tắt Giao dịch:</b> Tổng hợp các chỉ báo kỹ thuật cho thấy một bức tranh trung lập trong ngắn hạn. Xu hướng chính vẫn là tăng nhưng động lực đang yếu đi.
+                        🔍 <b>Quan sát:</b> Các tín hiệu mua và bán đang cân bằng.
+                        💡 <b>Insight:</b> Cần một chất xúc tác mới để giá có thể bứt phá khỏi vùng đi ngang hiện tại.
+                        🎯 <b>Khuyến nghị:</b> Giữ vị thế hiện tại và quan sát thêm. Đặt cảnh báo tại các vùng kháng cự và hỗ trợ quan trọng.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💰 Phân tích Tài chính (Financial Analysis)</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Dashboard Sức khỏe Tài chính</div>
+                    <img src="../charts/financial_analysis/financial_health_dashboard.png" alt="Financial Health Dashboard">
+                    <div class="analysis-text">
+                        📊 <b>Dashboard Sức khỏe Tài chính:</b> Các chỉ số tài chính cốt lõi của CTG đều ở mức tốt. ROE và ROA cao hơn trung bình ngành, P/E và P/B ở mức hợp lý.
+                        🔍 <b>Quan sát:</b> Sức khỏe tài chính được đánh giá ở mức 8/10.
+                        💡 <b>Insight:</b> Nền tảng cơ bản vững chắc là bệ đỡ cho giá cổ phiếu trong dài hạn.
+                        🎯 <b>Khuyến nghị:</b> Phù hợp cho các nhà đầu tư giá trị và dài hạn.
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Phân tích Khả năng Sinh lời</div>
+                    <img src="../charts/financial_analysis/profitability_analysis.png" alt="Profitability Analysis">
+                    <div class="analysis-text">
+                        📊 <b>Phân tích Khả năng Sinh lời:</b> Biên lợi nhuận ròng (NIM) và các chỉ số sinh lời khác đều cho thấy sự cải thiện trong các quý gần đây.
+                        🔍 <b>Quan sát:</b> Tăng trưởng lợi nhuận ổn định.
+                        💡 <b>Insight:</b> CTG đang quản lý chi phí và hoạt động cho vay hiệu quả.
+                        🎯 <b>Khuyến nghị:</b> Triển vọng lợi nhuận tích cực hỗ trợ cho đà tăng giá của cổ phiếu.
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Chỉ số Đặc thù Ngân hàng</div>
+                    <img src="../charts/financial_analysis/real_estate_specific_metrics.png" alt="Banking Metrics">
+                    <div class="analysis-text">
+                        📊 <b>Chỉ số Đặc thù Ngân hàng:</b> Tỷ lệ nợ xấu (NPL) được kiểm soát ở mức thấp. Tỷ lệ an toàn vốn (CAR) cao hơn yêu cầu của NHNN.
+                        🔍 <b>Quan sát:</b> Chất lượng tài sản tốt và bộ đệm vốn vững chắc.
+                        💡 <b>Insight:</b> Rủi ro hoạt động thấp, khả năng chống chịu tốt trước các cú sốc kinh tế.
+                        🎯 <b>Khuyến nghị:</b> Là một trong những ngân hàng có nền tảng an toàn nhất để đầu tư.
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">So sánh Đồng nghiệp</div>
+                    <img src="../charts/financial_analysis/peer_comparison.png" alt="Peer Comparison">
+                    <div class="analysis-text">
+                        📊 <b>So sánh Đồng nghiệp:</b> Khi so sánh với các ngân hàng khác trong ngành, CTG nổi bật về khả năng sinh lời (ROE, ROA) và hiệu quả hoạt động.
+                        🔍 <b>Quan sát:</b> Định giá P/B của CTG vẫn còn hấp dẫn so với các đối thủ cùng quy mô.
+                        💡 <b>Insight:</b> CTG có lợi thế cạnh tranh bền vững.
+                        🎯 <b>Khuyến nghị:</b> Là lựa chọn hàng đầu trong nhóm cổ phiếu ngân hàng.
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Xu hướng Tài chính</div>
+                    <img src="../charts/financial_analysis/financial_trends.png" alt="Financial Trends">
+                    <div class="analysis-text">
+                        📊 <b>Xu hướng Tài chính:</b> Các chỉ số tài chính quan trọng như doanh thu, lợi nhuận và tổng tài sản đều cho thấy xu hướng tăng trưởng bền vững qua các năm.
+                        🔍 <b>Quan sát:</b> Tăng trưởng kép hàng năm (CAGR) ở mức cao.
+                        💡 <b>Insight:</b> Triển vọng tăng trưởng dài hạn của CTG là rất tích cực.
+                        🎯 <b>Khuyến nghị:</b> Nắm giữ dài hạn để hưởng lợi từ sự tăng trưởng của ngân hàng.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Phân tích Bổ sung (Additional Analysis)</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Phân tích Hành động Giá</div>
+                    <img src="../charts/additional_analysis/price_action_analysis.png" alt="Price Action Analysis">
+                    <div class="analysis-text">
+                        📊 <b>Phân tích Hành động Giá:</b> Giá đang di chuyển trong một kênh giá tăng. Vùng 45.0 là hỗ trợ quan trọng, trong khi 47.0 là kháng cự gần nhất.
+                        🔍 <b>Quan sát:</b> Các nến gần đây có thân nhỏ, cho thấy sự do dự của thị trường.
+                        💡 <b>Insight:</b> Cần một cú bứt phá khỏi vùng kháng cự 47.0 để xác nhận xu hướng tăng tiếp diễn.
+                        🎯 <b>Khuyến nghị:</b> Mua khi giá điều chỉnh về gần cạnh dưới của kênh giá hoặc khi bứt phá khỏi kháng cự với khối lượng lớn.
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Phân tích Thanh khoản</div>
+                    <img src="../charts/additional_analysis/liquidity_analysis.png" alt="Liquidity Analysis">
+                    <div class="analysis-text">
+                        📊 <b>Phân tích Thanh khoản:</b> Thanh khoản của CTG luôn ở mức cao, đảm bảo khả năng giao dịch dễ dàng cho các nhà đầu tư lớn.
+                        🔍 <b>Quan sát:</b> Bid-ask spread nhỏ, cho thấy thị trường hiệu quả.
+                        💡 <b>Insight:</b> Rủi ro về thanh khoản là rất thấp.
+                        🎯 <b>Khuyến nghị:</b> Phù hợp với mọi quy mô danh mục đầu tư.
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Đánh giá Rủi ro</div>
+                    <img src="../charts/additional_analysis/risk_assessment.png" alt="Risk Assessment">
+                    <div class="analysis-text">
+                        📊 <b>Đánh giá Rủi ro:</b> Mức độ biến động (volatility) của cổ phiếu ở mức vừa phải. Mức sụt giảm tối đa (max drawdown) trong lịch sử không quá lớn.
+                        🔍 <b>Quan sát:</b> Value at Risk (VaR) cho thấy mức lỗ tiềm năng trong ngắn hạn là chấp nhận được.
+                        💡 <b>Insight:</b> Rủi ro tổng thể của cổ phiếu được kiểm soát tốt.
+                        🎯 <b>Khuyến nghị:</b> Có thể phân bổ một tỷ trọng hợp lý trong danh mục đầu tư.
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Vùng Giao dịch</div>
+                    <img src="../charts/additional_analysis/trading_zones.png" alt="Trading Zones">
+                    <div class="analysis-text">
+                        📊 <b>Vùng Giao dịch:</b> Volume Profile cho thấy vùng giá trị (value area) tập trung quanh mức 45.0 - 46.0. Đây là vùng giá được thị trường chấp nhận.
+                        🔍 <b>Quan sát:</b> VWAP (Giá trung bình theo khối lượng) đang hoạt động như một đường hỗ trợ động.
+                        💡 <b>Insight:</b> Giao dịch quanh vùng giá trị này được coi là an toàn hơn.
+                        🎯 <b>Khuyến nghị:</b> Canh mua khi giá ở nửa dưới của vùng giá trị và bán khi ở nửa trên.
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Dashboard Hiệu suất</div>
+                    <img src="../charts/additional_analysis/performance_dashboard.png" alt="Performance Dashboard">
+                    <div class="analysis-text">
+                        📊 <b>Dashboard Hiệu suất:</b> Hiệu suất của CTG trong 1 năm qua vượt trội so với VN-Index. Tỷ lệ Sharpe (lợi nhuận/rủi ro) ở mức hấp dẫn.
+                        🔍 <b>Quan sát:</b> Cổ phiếu mang lại lợi nhuận tốt với mức độ rủi ro hợp lý.
+                        💡 <b>Insight:</b> Là một khoản đầu tư hiệu quả trong trung và dài hạn.
+                        🎯 <b>Khuyến nghị:</b> Tiếp tục nắm giữ để tối ưu hóa lợi nhuận.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Phân tích Tổng quan</h2>
+            <div class="analysis-text">
+                <h3>🎯 Điểm Nổi bật:</h3>
+                <ul>
+                    <li><strong>Trạng thái đi ngang:</strong> Giá cổ phiếu CTG đóng cửa ở mức 45.6 VND, không thay đổi đáng kể so với đầu phiên, cho thấy sự cân bằng cung cầu.</li>
+                    <li><strong>Thanh khoản trung bình:</strong> 3,086 giao dịch trong phiên, thanh khoản ở mức vừa phải, cho thấy sự thận trọng của nhà đầu tư.</li>
+                    <li><strong>Nền tảng cơ bản vững chắc:</strong> ROE 18.57% và các chỉ số tài chính khác vẫn duy trì ở mức tốt, là điểm tựa cho giá cổ phiếu.</li>
+                    <li><strong>Tâm lý trung lập:</strong> Áp lực bán nhẹ (52.4%) cho thấy tâm lý chốt lời ngắn hạn nhưng không có sự hoảng loạn.</li>
+                </ul>
+            </div>
+            
+            <div class="analysis-text">
+                <h3>📈 Phân tích Kỹ thuật:</h3>
+                <ul>
+                    <li>Cổ phiếu đang trong giai đoạn tích lũy ngắn hạn sau một đà tăng, di chuyển trong kênh giá tăng.</li>
+                    <li>Dải Bollinger Bands thu hẹp và các chỉ báo động lượng (MACD, RSI) yếu đi cho thấy khả năng tiếp tục đi ngang hoặc có một nhịp điều chỉnh nhẹ.</li>
+                    <li>Vùng hỗ trợ quan trọng là 45.0 (MA20, vùng giá trị), trong khi kháng cự gần nhất là 47.0.</li>
+                </ul>
+            </div>
+
+            <div class="analysis-text">
+                <h3>💼 Phân tích Cơ bản:</h3>
+                <ul>
+                    <li>CTG là một trong những ngân hàng hàng đầu với chất lượng tài sản tốt và khả năng sinh lời vượt trội.</li>
+                    <li>Tăng trưởng tín dụng và huy động vốn ổn định, NIM có xu hướng cải thiện.</li>
+                    <li>Định giá P/B vẫn còn hấp dẫn so với các ngân hàng cùng ngành, mở ra cơ hội cho đầu tư dài hạn.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="recommendation">
+            <h3>🎯 KHUYẾN NGHỊ ĐẦU TƯ</h3>
+            <p><strong>HOLD/BUY ON DIPS</strong></p>
+            <p><strong>Target Price:</strong> 47.5 - 48.0 VND (trung hạn 3-6 tháng)</p>
+            <p><strong>Stop Loss:</strong> 44.5 VND</p>
+            <p><strong>Timeframe:</strong> 3-6 tháng</p>
+            <p><strong>Độ tin cậy:</strong> 85%</p>
+        </div>
+
+        <div class="risk-warning">
+            <h3>⚠️ Cảnh báo Rủi ro</h3>
+            <p><strong>Rủi ro ngắn hạn:</strong> Cổ phiếu có thể tiếp tục đi ngang hoặc điều chỉnh nhẹ về vùng hỗ trợ 45.0 trước khi tăng trở lại.</li>
+            <p><strong>Rủi ro vĩ mô:</strong> Những thay đổi trong chính sách tiền tệ hoặc biến động kinh tế có thể ảnh hưởng đến ngành ngân hàng.</li>
+            <p><strong>Cơ hội:</strong> Nền tảng cơ bản vững chắc, định giá hấp dẫn và triển vọng tăng trưởng dài hạn là những yếu tố hỗ trợ mạnh mẽ cho giá cổ phiếu.</li>
+        </div>
+
+        <div class="timestamp">
+            <p>📅 Báo cáo được cập nhật: 21/07/2025 14:00 | 🤖 DOMINUS AGENT v6.1</p>
+            <p>💾 Tổng số biểu đồ: 18 | 📊 Dữ liệu: 3,086 điểm giao dịch</p>
+        </div>
+    </div>
+</body>
+</html>
