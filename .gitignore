@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+
+# Development
+.claude/
+debug_columns.txt
+test_final_fix.py
+
+# Documentation drafts  
+DOCUMENTATION_AUDIT.md
+DOCUMENTATION_CLEANUP_SUMMARY.md
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
